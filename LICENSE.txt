@@ -1,0 +1,27 @@
+Sheet2Schedule - Commercial License Agreement
+
+Copyright (c) 2026 Jaspar Schultz. All rights reserved.
+
+This software ("Sheet2Schedule") and its associated documentation are the
+proprietary property of Jaspar Schultz. Purchase of a license grants the
+purchaser a non-exclusive, non-transferable license to install and use one
+copy of the compiled software per paid seat/machine, for the purchaser's own
+internal business purposes.
+
+The following are NOT permitted without prior written consent:
+- Redistributing, reselling, sublicensing, or sharing the software or license
+  key with any third party.
+- Reverse engineering, decompiling, or disassembling the compiled software,
+  except to the extent such restriction is prohibited by applicable law.
+- Modifying, adapting, or creating derivative works from the software.
+- Using the software to provide services to third parties (e.g. as part of a
+  paid consulting deliverable) without a separate commercial agreement.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+For licensing enquiries, contact: [your contact email]

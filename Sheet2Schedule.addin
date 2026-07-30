@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>Sheet2Schedule</Name>
+    <Assembly>C:\Program Files\Sheet2Schedule\Sheet2Schedule.dll</Assembly>
+    <AddInId>af284045-4076-4e70-8ace-5b218de81a09</AddInId>
+    <FullClassName>Sheet2Schedule.UI.App</FullClassName>
+    <VendorId>S2S</VendorId>
+    <VendorDescription>Sheet2Schedule - Excel to Revit Schedule Import Tool, sheet2schedule.com</VendorDescription>
+  </AddIn>
+</RevitAddIns>

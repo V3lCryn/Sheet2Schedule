@@ -1,0 +1,52 @@
+{
+  "scheduleName": "Sample Pump Schedule",
+  "sheetName": "Pump Schedule",
+  "headerRow": 4,
+  "dataStartRow": 5,
+  "columns": [
+    {
+      "excelColumn": "B",
+      "revitFieldName": "Tag"
+    },
+    {
+      "excelColumn": "C",
+      "revitFieldName": "Location"
+    },
+    {
+      "excelColumn": "D",
+      "revitFieldName": "Service"
+    },
+    {
+      "excelColumn": "E",
+      "revitFieldName": "Flow Rate (L/s)"
+    },
+    {
+      "excelColumn": "F",
+      "revitFieldName": "Head (kPa)"
+    },
+    {
+      "excelColumn": "G",
+      "revitFieldName": "Motor Power (kW)"
+    },
+    {
+      "excelColumn": "H",
+      "revitFieldName": "Voltage/Phase"
+    },
+    {
+      "excelColumn": "I",
+      "revitFieldName": "Manufacturer"
+    },
+    {
+      "excelColumn": "J",
+      "revitFieldName": "Model"
+    },
+    {
+      "excelColumn": "K",
+      "revitFieldName": "Weight (kg)"
+    },
+    {
+      "excelColumn": "L",
+      "revitFieldName": "Comments"
+    }
+  ]
+}

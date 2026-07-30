@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Revit 2021-2024 run on .NET Framework 4.8. If your Revit version is 2025+, change to net8.0-windows -->
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>Sheet2Schedule</RootNamespace>
+    <AssemblyName>Sheet2Schedule</AssemblyName>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Platforms>x64</Platforms>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+
+    <!-- IMPORTANT: set this to match the Revit version folder you are targeting -->
+    <RevitVersion>2024</RevitVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Revit API assemblies are NOT NuGet packages - they must be referenced directly
+         from the local Revit install. Update the path below if your install differs. -->
+    <Reference Include="RevitAPI">
+      <HintPath>C:\Program Files\Autodesk\Revit $(RevitVersion)\RevitAPI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="RevitAPIUI">
+      <HintPath>C:\Program Files\Autodesk\Revit $(RevitVersion)\RevitAPIUI.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- ClosedXML: MIT licensed, no commercial-use licensing questions (unlike EPPlus) -->
+    <PackageReference Include="ClosedXML" Version="0.102.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Copy the .addin manifest and any config files to the build output for convenience -->
+    <None Update="Sheet2Schedule.addin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

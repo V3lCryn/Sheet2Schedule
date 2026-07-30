@@ -1,0 +1,55 @@
+{
+  "scheduleName": "Sample AHU Schedule",
+  "sheetName": "AHU Schedule",
+  "headerRow": 4,
+  "dataStartRow": 5,
+  "columns": [
+    {
+      "excelColumn": "B",
+      "revitFieldName": "Unit Tag"
+    },
+    {
+      "excelColumn": "C",
+      "revitFieldName": "Area Served"
+    },
+    {
+      "excelColumn": "D",
+      "revitFieldName": "Supply Air (L/s)"
+    },
+    {
+      "excelColumn": "E",
+      "revitFieldName": "Outside Air (L/s)"
+    },
+    {
+      "excelColumn": "F",
+      "revitFieldName": "Fan Power (kW)"
+    },
+    {
+      "excelColumn": "G",
+      "revitFieldName": "Filter Class"
+    },
+    {
+      "excelColumn": "H",
+      "revitFieldName": "Weight (kg)"
+    },
+    {
+      "excelColumn": "I",
+      "revitFieldName": "Manufacturer"
+    },
+    {
+      "excelColumn": "J",
+      "revitFieldName": "Total Cooling (kW)",
+      "headerGroup": "Summer Design Condition"
+    },
+    {
+      "excelColumn": "K",
+      "revitFieldName": "Sensible Cooling (kW)",
+      "headerGroup": "Summer Design Condition"
+    },
+    {
+      "excelColumn": "L",
+      "revitFieldName": "Heating Capacity (kW)",
+      "headerGroup": "Winter Design Condition"
+    }
+  ]
+}
