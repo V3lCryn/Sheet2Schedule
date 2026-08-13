@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Revit 2021-2024 run on .NET Framework 4.8. If your Revit version is 2025+, change to net8.0-windows -->
-    <TargetFramework>net48</TargetFramework>
+    <!-- Revit 2021-2024 run on .NET Framework 4.8. Revit 2025-2026 run on .NET 8. Revit 2027 runs on .NET 10. -->
+    <TargetFramework>net10.0-windows</TargetFramework>
     <RootNamespace>Sheet2Schedule</RootNamespace>
     <AssemblyName>Sheet2Schedule</AssemblyName>
     <UseWPF>true</UseWPF>
@@ -12,7 +12,12 @@
     <Nullable>disable</Nullable>
 
     <!-- IMPORTANT: set this to match the Revit version folder you are targeting -->
-    <RevitVersion>2024</RevitVersion>
+    <RevitVersion>2027</RevitVersion>
+
+    <!-- Class library projects don't copy NuGet package DLLs to their own output by default
+         (that's normally left to a consuming exe project). Revit is the "host" here instead
+         of another project in this solution, so force the copy explicitly. -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,6 +45,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Config\**\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

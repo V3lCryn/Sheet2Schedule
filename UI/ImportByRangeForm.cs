@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using WinForms = System.Windows.Forms;
 using Drawing = System.Drawing;
 using Sheet2Schedule.Models;
@@ -43,16 +45,34 @@ namespace Sheet2Schedule.UI
             _sheetNames = sheetNames;
             AutoScaleMode = WinForms.AutoScaleMode.Font;
             Font = AppFont;
+            SetStyle(WinForms.ControlStyles.AllPaintingInWmPaint | WinForms.ControlStyles.UserPaint | WinForms.ControlStyles.DoubleBuffer, true);
             BuildUi();
+        }
+
+        private void SetWindowIcon()
+        {
+            try
+            {
+                string assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string iconPath = Path.Combine(assemblyDir, "Resources", "logo.ico");
+                if (File.Exists(iconPath))
+                    Icon = new Drawing.Icon(iconPath);
+            }
+            catch
+            {
+                // Missing icon shouldn't block the tool from opening.
+            }
         }
 
         private void BuildUi()
         {
             Text = "Import by Range";
-            Width = 820;
-            Height = 560;
+            ClientSize = new Drawing.Size(820, 600);
+            MinimumSize = new Drawing.Size(720, 520);
             StartPosition = WinForms.FormStartPosition.CenterScreen;
             BackColor = Drawing.Color.White;
+
+            SetWindowIcon();
 
             var titleLabel = new WinForms.Label
             {
@@ -125,7 +145,7 @@ namespace Sheet2Schedule.UI
                 Left = 16,
                 Top = 124,
                 Width = 780,
-                Height = 300,
+                Height = 316,
                 Font = AppFont,
                 BackgroundColor = Drawing.Color.White,
                 BorderStyle = WinForms.BorderStyle.FixedSingle,
@@ -142,14 +162,14 @@ namespace Sheet2Schedule.UI
             {
                 Text = "Schedule name:",
                 Left = 16,
-                Top = 436,
+                Top = 456,
                 Width = 110,
                 Anchor = WinForms.AnchorStyles.Bottom | WinForms.AnchorStyles.Left
             };
             _scheduleNameBox = new WinForms.TextBox
             {
                 Left = 130,
-                Top = 432,
+                Top = 452,
                 Width = 300,
                 Font = AppFont,
                 Anchor = WinForms.AnchorStyles.Bottom | WinForms.AnchorStyles.Left
@@ -158,7 +178,7 @@ namespace Sheet2Schedule.UI
             _progressBar = new WinForms.ProgressBar
             {
                 Left = 16,
-                Top = 468,
+                Top = 492,
                 Width = 780,
                 Height = 10,
                 Style = WinForms.ProgressBarStyle.Marquee,
@@ -171,9 +191,9 @@ namespace Sheet2Schedule.UI
             {
                 Text = "Import",
                 Left = 546,
-                Top = 488,
+                Top = 516,
                 Width = 110,
-                Height = 32,
+                Height = 34,
                 FlatStyle = WinForms.FlatStyle.Flat,
                 BackColor = AccentColor,
                 ForeColor = Drawing.Color.White,
@@ -187,9 +207,9 @@ namespace Sheet2Schedule.UI
             {
                 Text = "Cancel",
                 Left = 664,
-                Top = 488,
+                Top = 516,
                 Width = 92,
-                Height = 32,
+                Height = 34,
                 FlatStyle = WinForms.FlatStyle.Flat,
                 Font = AppFont,
                 Anchor = WinForms.AnchorStyles.Bottom | WinForms.AnchorStyles.Right

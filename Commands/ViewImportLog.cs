@@ -11,8 +11,15 @@ namespace Sheet2Schedule.Commands
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            Document doc = commandData.Application.ActiveUIDocument.Document;
+            return Run(commandData.Application.ActiveUIDocument.Document);
+        }
 
+        /// <summary>
+        /// Core logic, callable both from Execute (standalone) and from HubForm
+        /// (as one of the three consolidated actions).
+        /// </summary>
+        public static Result Run(Document doc)
+        {
             using (var form = new ImportLogForm(doc))
             {
                 form.ShowDialog();

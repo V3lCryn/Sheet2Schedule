@@ -19,8 +19,15 @@ namespace Sheet2Schedule.Commands
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            Document doc = commandData.Application.ActiveUIDocument.Document;
+            return Run(commandData.Application.ActiveUIDocument.Document);
+        }
 
+        /// <summary>
+        /// Core logic, callable both from Execute (standalone) and from HubForm
+        /// (as one of the three consolidated actions).
+        /// </summary>
+        public static Result Run(Document doc)
+        {
             string excelPath;
             using (var dialog = new OpenFileDialog
             {
@@ -103,7 +110,6 @@ namespace Sheet2Schedule.Commands
                         if (t.HasStarted() && !t.HasEnded())
                             t.RollBack();
 
-                        message = ex.Message;
                         TaskDialog.Show("Sheet2Schedule - Error", $"Something went wrong and has been rolled back.\n\nDetails: {ex.Message}");
                         return Result.Failed;
                     }

@@ -18,9 +18,15 @@ namespace Sheet2Schedule.Commands
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            UIDocument uiDoc = commandData.Application.ActiveUIDocument;
-            Document doc = uiDoc.Document;
+            return Run(commandData.Application.ActiveUIDocument.Document);
+        }
 
+        /// <summary>
+        /// Core logic, callable both from Execute (standalone) and from HubForm
+        /// (as one of the three consolidated actions).
+        /// </summary>
+        public static Result Run(Document doc)
+        {
             List<ViewSchedule> managedSchedules = new FilteredElementCollector(doc)
                 .OfClass(typeof(ViewSchedule))
                 .Cast<ViewSchedule>()
@@ -32,7 +38,7 @@ namespace Sheet2Schedule.Commands
                 TaskDialog.Show(
                     "Sheet2Schedule",
                     "No schedules created by this tool were found in the current document.\n\n" +
-                    "Run \"Import Schedule\" first to create one.");
+                    "Run \"Import by Range\" first to create one.");
                 return Result.Succeeded;
             }
 

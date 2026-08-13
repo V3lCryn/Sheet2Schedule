@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using WinForms = System.Windows.Forms;
 using Drawing = System.Drawing;
 using Autodesk.Revit.DB;
@@ -23,19 +25,37 @@ namespace Sheet2Schedule.UI
         {
             AutoScaleMode = WinForms.AutoScaleMode.Font;
             Font = AppFont;
+            SetStyle(WinForms.ControlStyles.AllPaintingInWmPaint | WinForms.ControlStyles.UserPaint | WinForms.ControlStyles.DoubleBuffer, true);
             BuildUi();
             PopulateList(doc);
+        }
+
+        private void SetWindowIcon()
+        {
+            try
+            {
+                string assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string iconPath = Path.Combine(assemblyDir, "Resources", "logo.ico");
+                if (File.Exists(iconPath))
+                    Icon = new Drawing.Icon(iconPath);
+            }
+            catch
+            {
+                // Missing icon shouldn't block the tool from opening.
+            }
         }
 
         private void BuildUi()
         {
             Text = "Import Log";
-            Width = 840;
-            Height = 440;
+            ClientSize = new Drawing.Size(840, 440);
+            MinimumSize = new Drawing.Size(680, 360);
             StartPosition = WinForms.FormStartPosition.CenterScreen;
             MinimizeBox = false;
             MaximizeBox = false;
             BackColor = Drawing.Color.White;
+
+            SetWindowIcon();
 
             var titleLabel = new WinForms.Label
             {

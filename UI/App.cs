@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Reflection;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
@@ -24,66 +25,28 @@ namespace Sheet2Schedule.UI
             RibbonPanel panel = application.CreateRibbonPanel(TabName, PanelName);
 
             string assemblyPath = Assembly.GetExecutingAssembly().Location;
+            string assemblyDir = Path.GetDirectoryName(assemblyPath);
 
-            var smokeTestData = new PushButtonData(
-                "WallCounter",
-                "Smoke Test",
+            var hubData = new PushButtonData(
+                "Sheet2ScheduleHub",
+                "Sheet2Schedule",
                 assemblyPath,
-                "Sheet2Schedule.Commands.WallCounter")
+                "Sheet2Schedule.Commands.Sheet2ScheduleHub")
             {
-                ToolTip = "Read-only test: counts walls in the active view. Confirms the add-in is loaded correctly without changing anything."
+                ToolTip = "Import Excel schedules into Revit, manage existing data links, and view the import history - all from one place."
             };
-            panel.AddItem(smokeTestData);
 
-            var importData = new PushButtonData(
-                "ImportCamelData",
-                "Import\nSchedule",
-                assemblyPath,
-                "Sheet2Schedule.Commands.ImportCamelData")
-            {
-                ToolTip = "Reads a mechanical equipment schedule from Excel and creates a new native Revit schedule. Does not touch AutoCAD or any existing Revit schedule."
-            };
-            panel.AddItem(importData);
+            // Large ribbon icon (32px) and small fallback (16px, used if the panel collapses).
+            // Resources/ ships alongside the DLL via the csproj's CopyToOutputDirectory setting.
+            string icon32Path = Path.Combine(assemblyDir, "Resources", "logo_32.png");
+            string icon16Path = Path.Combine(assemblyDir, "Resources", "logo_16.png");
 
-            var importByRangeData = new PushButtonData(
-                "ImportByRange",
-                "Import by\nRange",
-                assemblyPath,
-                "Sheet2Schedule.Commands.ImportByRange")
-            {
-                ToolTip = "Import a specific cell range (e.g. B2:P29) from Excel without needing a saved schedule type."
-            };
-            panel.AddItem(importByRangeData);
+            if (File.Exists(icon32Path))
+                hubData.LargeImage = new BitmapImage(new Uri(icon32Path));
+            if (File.Exists(icon16Path))
+                hubData.Image = new BitmapImage(new Uri(icon16Path));
 
-            var manageLinksData = new PushButtonData(
-                "ManageDataLinks",
-                "Manage\nData Links",
-                assemblyPath,
-                "Sheet2Schedule.Commands.ManageDataLinks")
-            {
-                ToolTip = "View and reload the Excel sources behind schedules created by this tool - similar to Revit's Manage Links, but for Excel-imported schedules."
-            };
-            panel.AddItem(manageLinksData);
-
-            var viewLogData = new PushButtonData(
-                "ViewImportLog",
-                "Import\nLog",
-                assemblyPath,
-                "Sheet2Schedule.Commands.ViewImportLog")
-            {
-                ToolTip = "View the history of every schedule import/reload performed on this project."
-            };
-            panel.AddItem(viewLogData);
-
-            var newScheduleTypeData = new PushButtonData(
-                "NewScheduleType",
-                "New Schedule\nType...",
-                assemblyPath,
-                "Sheet2Schedule.Commands.NewScheduleType")
-            {
-                ToolTip = "Build a new schedule type from any Excel file/sheet this tool hasn't seen before - no code changes needed."
-            };
-            panel.AddItem(newScheduleTypeData);
+            panel.AddItem(hubData);
 
             return Result.Succeeded;
         }

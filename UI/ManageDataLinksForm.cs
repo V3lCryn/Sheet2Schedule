@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using WinForms = System.Windows.Forms;
 using Drawing = System.Drawing;
 using Autodesk.Revit.DB;
@@ -28,20 +29,38 @@ namespace Sheet2Schedule.UI
             _schedules = schedules;
             AutoScaleMode = WinForms.AutoScaleMode.Font;
             Font = AppFont;
+            SetStyle(WinForms.ControlStyles.AllPaintingInWmPaint | WinForms.ControlStyles.UserPaint | WinForms.ControlStyles.DoubleBuffer, true);
             BuildUi();
             PopulateList();
+        }
+
+        private void SetWindowIcon()
+        {
+            try
+            {
+                string assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                string iconPath = Path.Combine(assemblyDir, "Resources", "logo.ico");
+                if (File.Exists(iconPath))
+                    Icon = new Drawing.Icon(iconPath);
+            }
+            catch
+            {
+                // Missing icon shouldn't block the tool from opening.
+            }
         }
 
         private void BuildUi()
         {
             Text = "Manage Data Links";
-            Width = 780;
-            Height = 420;
+            ClientSize = new Drawing.Size(760, 420);
+            MinimumSize = new Drawing.Size(560, 340);
             StartPosition = WinForms.FormStartPosition.CenterScreen;
             MinimizeBox = false;
             MaximizeBox = false;
             Padding = new WinForms.Padding(16);
             BackColor = Drawing.Color.White;
+
+            SetWindowIcon();
 
             var titleLabel = new WinForms.Label
             {
@@ -75,13 +94,14 @@ namespace Sheet2Schedule.UI
             {
                 Text = "Reload",
                 Left = 16,
-                Top = 316,
+                Top = 320,
                 Width = 110,
                 Height = 32,
                 FlatStyle = WinForms.FlatStyle.Flat,
                 BackColor = AccentColor,
                 ForeColor = Drawing.Color.White,
-                Font = AppFont
+                Font = AppFont,
+                Anchor = WinForms.AnchorStyles.Bottom | WinForms.AnchorStyles.Left
             };
             _reloadButton.FlatAppearance.BorderSize = 0;
             _reloadButton.Click += (s, e) => Reload(useNewFile: false);
@@ -90,11 +110,12 @@ namespace Sheet2Schedule.UI
             {
                 Text = "Reload From...",
                 Left = 134,
-                Top = 316,
+                Top = 320,
                 Width = 130,
                 Height = 32,
                 FlatStyle = WinForms.FlatStyle.Flat,
-                Font = AppFont
+                Font = AppFont,
+                Anchor = WinForms.AnchorStyles.Bottom | WinForms.AnchorStyles.Left
             };
             _reloadFromButton.FlatAppearance.BorderColor = AccentColor;
             _reloadFromButton.Click += (s, e) => Reload(useNewFile: true);
@@ -103,7 +124,7 @@ namespace Sheet2Schedule.UI
             {
                 Text = "Close",
                 Left = 654,
-                Top = 316,
+                Top = 320,
                 Width = 92,
                 Height = 32,
                 FlatStyle = WinForms.FlatStyle.Flat,
